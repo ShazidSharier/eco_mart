@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+<<<<<<< HEAD
+=======
+
+[x-cloak] {
+    display: none;
+}
+>>>>>>> 5e93856 (initial project upload)

@@ -1,31 +1,25 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WolmartController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CustomerController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',[WolmartController::class,'index'])->name('home');
+
+
+Route::get('/customer/register',[CustomerController::class,'register'])->name('customer.register');
+Route::get('/check-customer-email',[CustomerController::class,'checkCustomerEmail'])->name('check-customer-email');
+Route::post('/customer/register',[CustomerController::class,'saveNewCustomer'])->name('customer.register');
+
+Route::get('/customer/login',[CustomerController::class,'login'])->name('customer.login');
+Route::post('/customer/login',[CustomerController::class,'loginCheck'])->name('customer.login');
+Route::get('/customer/logout',[CustomerController::class,'logout'])->name('customer.logout');
+
+
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
