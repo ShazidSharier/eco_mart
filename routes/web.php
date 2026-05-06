@@ -5,6 +5,7 @@ use App\Http\Controllers\WolmartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 
 
 Route::get('/',[WolmartController::class,'index'])->name('home');
@@ -24,5 +25,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
     Route::resource('category', CategoryController::class );
+    Route::resource('sub-category', SubCategoryController::class );
+    Route::resource('brand', BrandController::class );
 
 });
