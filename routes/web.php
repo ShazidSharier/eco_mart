@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WolmartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/',[WolmartController::class,'index'])->name('home');
@@ -21,5 +22,7 @@ Route::get('/customer/logout',[CustomerController::class,'logout'])->name('custo
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+    Route::resource('category', CategoryController::class );
 
 });
