@@ -22,10 +22,10 @@
                     <ul class="slide-menu">
                         <li class="nav-item"><a href="{{route('category.index')}}" class="nav-link slide-item" data-key="t-analytics"> Category </a></li>
                         <li class="nav-item"><a href="{{route('sub-category.index')}}" class="nav-link" data-key="t-analytics"> Sub Category </a></li>
-                        <li class="nav-item"><a href="" class="nav-link" data-key="t-analytics"> Brand </a></li>
-                        <li class="nav-item"><a href="" class="nav-link" data-key="t-analytics"> Unit </a></li>
-                        <li class="nav-item"><a href="" class="nav-link" data-key="t-analytics"> Color </a></li>
-                        <li class="nav-item"><a href="" class="nav-link" data-key="t-analytics"> Size </a></li>
+                        <li class="nav-item"><a href="{{route('brand.index')}}" class="nav-link" data-key="t-analytics"> Brand </a></li>
+                        <li class="nav-item"><a href="{{route('unit.index')}}" class="nav-link" data-key="t-analytics"> Unit </a></li>
+                        <li class="nav-item"><a href="{{route('color.index')}}" class="nav-link" data-key="t-analytics"> Color </a></li>
+                        <li class="nav-item"><a href="{{route('size.index')}}" class="nav-link" data-key="t-analytics"> Size </a></li>
                     </ul>
                 </div>
             </li>
