@@ -16,7 +16,7 @@
             <li class="menu-title"><span data-key="t-menu">Menu</span></li>
             <li class="nav-item">
                 <a class="nav-link menu-link side-menu__item" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="mdi mdi-speedometer"></i> <span class="side-menu__label">Settings Module</span>
+                    <i class="mdi mdi-speedometer"></i> <span class="side-menu__label">Module</span>
                 </a>
                 <div class="collapse menu-dropdown" id="sidebarDashboards">
                     <ul class="slide-menu">
@@ -35,7 +35,7 @@
                 </a>
                 <div class="collapse menu-dropdown" id="sidebarDashboards">
                     <ul class="slide-menu">
-                        <li class="nav-item"><a href="" class="nav-link" data-key="t-analytics"> Product </a></li>
+                        <li class="nav-item"><a href="{{route('product.index')}}" class="nav-link" data-key="t-analytics"> Product </a></li>
                     </ul>
                 </div>
             </li>
