@@ -6,7 +6,7 @@
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb shop-breadcrumb bb-no">
-                    <li class="passed"><a href="cart.html">Shopping Cart</a></li>
+                    <li class="passed"><a href="{{route('cart')}}">Shopping Cart</a></li>
                     <li class="active"><a href="checkout.html">Checkout</a></li>
                     <li><a href="order.html">Complete Order</a></li>
                 </ul>
@@ -19,16 +19,8 @@
                 <div class="row">
                     <div class="page-content">
                         <div class="container">
-                            <div class="coupon-toggle">Have a coupon? <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter your code</a>
-                            </div>
-                            <div class="coupon-content mb-4">
-                                <p>If you have a coupon code, please apply it below.</p>
-                                <div class="input-wrapper-inline">
-                                    <input type="text" name="coupon_code" class="form-control form-control-md mr-1 mb-2" placeholder="Coupon code" id="coupon_code">
-                                    <button type="submit" class="btn btn-primary button btn-rounded btn-coupon mb-2" name="apply_coupon" value="Apply coupon">Apply Coupon</button>
-                                </div>
-                            </div>
-                            <form class="form checkout-form" action="{{route('new-order')}}" method="POST">
+
+                            <form class="form checkout-form" action="" method="POST">
                                 @csrf
                                 <div class="row mb-9">
                                     <div class="col-lg-7 pr-lg-4 mb-4">
@@ -62,7 +54,19 @@
                                         <div class="order-summary-wrapper sticky-sidebar">
                                             <h3 class="title text-uppercase ls-10">Cart Summary</h3>
                                             <div class="order-summary">
-                                                @php($sum=0)
+                                                @php
+                                                    $sum = 0;
+                                                    $cartItems = session('cart', []);
+
+                                                    foreach($cartItems as $item) {
+                                                        $sum += ($item['price'] * $item['quantity']);
+                                                    }
+
+                                                    $shipping = 100;
+                                                    $tax = round($sum * 0.02);
+                                                    $totalPayable = $sum + $tax + $shipping;
+                                                @endphp
+
                                                 <table class="order-table">
                                                     <thead>
                                                     <tr>
@@ -72,48 +76,43 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach(Cart::content() as $item)
+                                                    @forelse($cartItems as $id => $item)
+                                                        @php($subTotal = $item['price'] * $item['quantity'])
                                                         <tr class="bb-no">
-                                                            <td class="product-name">{{$item->name}} <i class="fas fa-times"></i>
-                                                                <span class="product-quantity">{{$item->qty}}</span>
+                                                            <td class="product-name">{{ $item['name'] }}
+                                                                <i class="fas fa-times"></i>
+                                                                <span class="product-quantity">{{ $item['quantity'] }}</span>
                                                             </td>
-                                                            <td class="product-total">{{$item->price}}</td>
-                                                            <td class="cart-subtotal">{{$item->price* $item->qty}}</td>
-                                                            @php( $sum = $sum + ($item->price*$item->qty) )
+                                                            <td class="product-total">{{ number_format($item['price'], 2) }}</td>
+                                                            <td class="cart-subtotal">{{ number_format($subTotal, 2) }}</td>
                                                         </tr>
-                                                    @endforeach
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="3">Your cart is empty!</td>
+                                                        </tr>
+                                                    @endforelse
                                                     </tbody>
                                                     <tfoot>
                                                     <tr class="shipping-methods">
                                                         <td colspan="2" class="text-left">
-                                                            <h4 class="title title-simple bb-no mb-1 pb-0 pt-3">Shipping</h4>
-                                                            <ul id="shipping-method" class="mb-4">
-                                                                <li>
-                                                                    <div class="custom-radio"><input type="radio" id="free-shipping" class="custom-control-input" name="shipping">
-                                                                        <label for="free-shipping" class="custom-control-label color-dark">Shipping Charge:{{ $shipping = 100 }}</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div class="custom-radio">
-                                                                        <input type="radio" id="flat-rate" class="custom-control-input" name="shipping">
-                                                                        <label for="flat-rate" class="custom-control-label color-dark">Tax (15%): {{ $tax = round( ($sum * 0.15) ) }}</label>
-                                                                    </div>
-                                                                </li>
+                                                            <h4 class="title title-simple bb-no mb-1 pb-0 pt-3">Shipping & Tax</h4>
+                                                            <ul id="shipping-method" class="mb-4" style="list-style: none; padding: 0;">
+                                                                <li><strong>Shipping Charge:</strong> {{ number_format($shipping, 2) }}</li>
+                                                                <li><strong>Tax (2%):</strong> {{ number_format($tax, 2) }}</li>
                                                             </ul>
                                                         </td>
                                                     </tr>
                                                     <tr class="order-total">
                                                         <th><b>Total Payable</b></th>
-                                                        <td><b>{{  $totalPayable = $sum + $tax + $shipping }}</b></td>
+                                                        <td><b>{{ number_format($totalPayable, 2) }}</b></td>
                                                     </tr>
-                                                    <?php
-                                                    Session::put('order_total',$totalPayable);
-                                                    Session::put('tax_total',$tax);
-                                                    Session::put('shipping_total',$shipping);
-                                                    ?>
                                                     </tfoot>
                                                 </table>
+                                                <input type="hidden" name="order_total" value="{{ $totalPayable }}">
                                             </div>
+
+
+
                                         </div>
                                     </div>
                                 </div>

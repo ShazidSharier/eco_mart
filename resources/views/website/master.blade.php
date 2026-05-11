@@ -77,22 +77,26 @@
             </div>
             <div class="tab-pane dropdown" id="categories">
                 <ul class="mobile-menu">
-{{--                    @foreach($categories as $category)--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('shop',['id' => $category->id])}}">{{$category->name}}--}}
-{{--                                @if(count($category->subCategory) > 0)--}}
-{{--                                @endif--}}
-{{--                            </a>--}}
+                    @foreach($categories as $category)
+                        <li>
+                            <a href="{{ route('shop', ['id' => $category->id]) }}">
+                                {{ $category->name }}
+                            </a>
 
-{{--                            @if(count($category->subCategory) > 0)--}}
-{{--                                <ul class="inner-sub-category">--}}
-{{--                                    @foreach($category->subCategory as $subCategory)--}}
-{{--                                        <li><a href="{{route('sub-category-shop', ['id' => $subCategory->id])}}">{{$subCategory->name}}</a></li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                            @endif--}}
-{{--                        </li>--}}
-{{--                    @endforeach--}}
+                            {{-- Use isNotEmpty() to safely check for records --}}
+                            @if($category->subCategory && $category->subCategory->isNotEmpty())
+                                <ul class="inner-sub-category">
+                                    @foreach($category->subCategory as $subCategory)
+                                        <li>
+                                            <a href="{{ route('sub-category-shop', ['id' => $subCategory->id]) }}">
+                                                {{ $subCategory->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -149,5 +153,27 @@
         });
     }
 </script>
+
+<script>
+    function addToCart(productId) {
+        // ইনপুট বক্স থেকে কোয়ান্টিটি নেওয়া
+        var quantity = document.getElementById('qty_input').value;
+
+        // যদি ইউজার ভুল করে ০ বা খালি রাখে তবে ১ ধরা হবে
+        if(quantity < 1 || quantity == "") { quantity = 1; }
+
+        // সঠিক ইউআরএল তৈরি করে পাঠানো
+        window.location.href = "{{ url('add-to-cart') }}/" + productId + "?qty=" + quantity;
+    }
+</script>
+
+{{--<script>--}}
+{{--    function addToCart(productId) {--}}
+{{--        var quantity = document.getElementById('qty_input').value;--}}
+{{--        // ইউআরএল এ কুয়েরি স্ট্রিং হিসেবে qty পাঠাবে: /add-to-cart/4?qty=5--}}
+{{--        window.location.href = "{{ url('add-to-cart') }}/" + productId + "?qty=" + quantity;--}}
+{{--    }--}}
+{{--</script>--}}
+
 </body>
 </html>

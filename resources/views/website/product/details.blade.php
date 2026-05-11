@@ -6,7 +6,7 @@
         <!-- Start of Breadcrumb -->
         <nav class="breadcrumb-nav container">
             <ul class="breadcrumb bb-no">
-                <li><a href="demo1.html">Home</a></li>
+                <li><a href="{{route('home')}}">Home</a></li>
                 <li>Products</li>
             </ul>
             <ul class="product-nav list-style-none">
@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row gutter-lg">
                     <div class="main-content">
-                        <form action="{{route('cart.store')}}" method="POST">
+                        <form action="" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{$product->id}}">
                         <div class="product product-single row">
@@ -142,17 +142,15 @@
 
                                     <div class="fix-bottom sticky-content">
                                         <div class="product-form container">
-                                            <div class="product-qty-form">
-                                                <div class="input-group">
-                                                    <input class="quantity form-control" name="qty" type="number" min="1" max="10000000">
-                                                    <button class="quantity-plus w-icon-plus"></button>
-                                                    <button class="quantity-minus w-icon-minus"></button>
-                                                </div>
+
+                                            <div class="input-group">
+                                                <input class="quantity form-control" id="qty_input" name="qty" type="number" min="1" value="1">
                                             </div>
-                                            <button class="btn ">
+
+                                            <a href="javascript:void(0)" onclick="addToCart({{ $product->id }})" class="btn btn-cart">
                                                 <i class="w-icon-cart"></i>
-                                                <a href=""><span>Add to Cart</span></a>
-                                            </button>
+                                                <span>Add to Cart</span>
+                                            </a>
                                         </div>
                                     </div>
 

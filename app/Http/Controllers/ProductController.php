@@ -54,6 +54,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'              => 'required|string|max:255|unique:products,name',
+            'code'              => 'required|string|max:50|unique:products,code',
+            'category_id'       => 'required|integer',
+            'sub_category_id'   => 'required|integer',
+            'brand_id'          => 'required|integer',
+            'unit_id'           => 'required|integer',
+            'regular_price'     => 'required|numeric',
+            'selling_price'     => 'required|numeric',
+            'stock_amount'      => 'required|integer',
+            'image'             => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+
+            'name.unique'        => 'This name already exist',
+            'code.unique'        => 'This code already exist',
+            'category_id'        => 'select category',
+            'sub_category_id'    => 'select category',
+            'brand_id'           => 'select brand',
+            'unit_id'            => 'select unit',
+            'image'              => 'Select image',
+            'regular_price'      => 'select price',
+            'selling_price'      => 'select price',
+            'stock_amount'       => 'select price',
+        ]);
+
         $this->productId = Product::saveNewProduct($request);
         ProductImage::newProductImage($request->file('other_image'), $this->productId);
         ProductColor::saveProductColor($request->color, $this->productId);

@@ -28,6 +28,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'        => 'required|string|max:255|unique:categories,name',
+            'description' => 'required|string',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'name.required' => 'Enter category name',
+            'name.unique'   => 'This name already exist',
+            'description' => 'Fill the description',
+            'image'       => 'upload an image',
+        ]);
+
         Category::saveCategory($request);
         return back()->with('message','Category info created successfully.');
     }
@@ -53,6 +64,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request->validate([
+            'name'        => 'required|string|max:255|unique:categories,name',
+            'description' => 'required|string',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'name.required' => 'Enter category name',
+            'name.unique'   => 'This name already exist',
+            'description' => 'Fill the description',
+            'image'       => 'upload an image',
+        ]);
+
         Category::updateCategoryInfo($request, $category->id);
         return redirect('/category')->with('message', 'Category info updated.');
     }

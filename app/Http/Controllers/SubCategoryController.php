@@ -29,6 +29,20 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name'        => 'required|string|max:255|unique:sub_categories,name',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'description' => 'required',
+        ], [
+
+            'name.unique'   => 'This name already exist',
+            'category_id.required' => 'Please select category',
+            'image'       => 'select an image',
+            'description' => 'enter the description',
+
+        ]);
+
         SubCategory::saveSubCategory($request);
         return back()->with('message','SubCategory Info created successfully.');
     }
@@ -58,6 +72,20 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name'        => 'required|string|max:255|unique:sub_categories,name',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'description' => 'required',
+        ], [
+
+            'name.unique'   => 'This name already exist',
+            'category_id.required' => 'Please select category',
+            'image'       => 'select an image',
+            'description' => 'enter the description',
+
+        ]);
+
         SubCategory::updateSubCategory($request,$id);
         return redirect('/sub-category')->with('message','SubCategory info updated successfully.');
     }

@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use Session;
+use Illuminate\Http\Request;
+
+class CustomerDashboardController extends Controller
+{
+    public function index()
+    {
+        return view('website.customer.dashboard');
+    }
+    public function profile()
+    {
+        return view('website.customer.profile',['customer' => Customer::find(Session::get('customerId'))]);
+    }
+    public function update(Request $request,$id)
+    {
+        return $id;
+    }
+}

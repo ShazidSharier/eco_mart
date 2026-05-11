@@ -37,30 +37,42 @@
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">Category Name</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="category_id">
+                                            <select class="form-control @error('category_id') is-invalid @enderror" name="category_id">
                                                 <option value=""> -- Select Category -- </option>
                                                 @foreach($categories as $category)
                                                     <option value="{{$category->id}}"> {{$category->name}} </option>
                                                 @endforeach
                                             </select>
+                                            @error('category_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">SubCategory Name</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" name="name" placeholder="Enter SubCategory Name" type="text">
+                                            <input class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter SubCategory Name" type="text">
+                                            @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">SubCategory Description</label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="description"></textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror" name="description"></textarea>
+                                            @error('description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">SubCategory Image</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" name="image" type="file">
+                                            <input class="form-control @error('image') is-invalid @enderror" name="image" type="file">
+                                            @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <button class="btn btn-primary" type="submit">Create New SubCategory</button>

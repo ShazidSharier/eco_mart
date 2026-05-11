@@ -6,8 +6,8 @@
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb bb-no">
-                    <li><a href="demo1.html">Home</a></li>
-                    <li><a href="shop-banner-sidebar.html">Shop</a></li>
+                    <li><a href="{{route("home")}}">Home</a></li>
+                    <li><a href="">Shop</a></li>
                     <li>3 Columns</li>
                 </ul>
             </div>
@@ -26,219 +26,38 @@
                         <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded btn-icon-right">Discover Now<i class="w-icon-long-arrow-right"></i></a>
                     </div>
                 </div>
-                <!-- End of Shop Banner -->
-
-                <div class="shop-default-brands mb-5">
-                    <div class="brands-swiper swiper-container swiper-theme "
-                         data-swiper-options="{
-                                'slidesPerView': 2,
-                                'breakpoints': {
-                                    '576': {
-                                        'slidesPerView': 3
-                                    },
-                                    '768': {
-                                        'slidesPerView': 4
-                                    },
-                                    '992': {
-                                        'slidesPerView': 6
-                                    },
-                                    '1200': {
-                                        'slidesPerView': 7
-                                    }
-                                },
-                                'autoplay': {
-                                    'delay': 4000,
-                                    'disableOnInteraction': false
-                                }
-                            }">
-                        <div class="swiper-wrapper row gutter-no cols-xl-7 cols-lg-6 cols-md-4 cols-sm-3 cols-2">
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/1.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/2.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/3.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/4.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/5.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/6.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                            <div class="swiper-slide">
-                                <figure>
-                                    <img src="{{asset('/')}}website/assets/images/brands/category/7.png" alt="Brand" width="160" height="90" />
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-                </div>
-                <!-- End of Shop Brands-->
 
                 <!-- Start of Shop Category -->
-                <div class="shop-default-category category-ellipse-section mb-6">
-                    <div class="swiper-container swiper-theme shadow-swiper"
-                         data-swiper-options="{
-                            'spaceBetween': 20,
-                            'slidesPerView': 2,
-                            'breakpoints': {
-                                '480': {
-                                    'slidesPerView': 3
-                                },
-                                '576': {
-                                    'slidesPerView': 4
-                                },
-                                '768': {
-                                    'slidesPerView': 6
-                                },
-                                '992': {
-                                    'slidesPerView': 7
-                                },
-                                '1200': {
-                                    'slidesPerView': 8,
-                                    'spaceBetween': 30
-                                }
-                            }
-                        }">
-                        <div class="swiper-wrapper row gutter-lg cols-xl-8 cols-lg-7 cols-md-6 cols-sm-4 cols-xs-3 cols-2">
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
+                <div class="swiper">
+                    <div class="swiper-container category-wrapper swiper-theme appear-animate" data-swiper-options="{
+            'spaceBetween': 20,
+            'slidesPerView': 2,
+            'breakpoints': {
+                '576': { 'slidesPerView': 3 },
+                '768': { 'slidesPerView': 4 },
+                '992': { 'slidesPerView': 5 },
+                '1200': { 'slidesPerView': 6 }
+            }
+        }">
+                        <div class="swiper-wrapper row cols-xl-6 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+
+                            @foreach($categories as $category)
+                                <div class="swiper-slide category category-ellipse">
                                     <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-4.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #5C92C0;" />
+                                        <a href="{{ route('category-shop', ['id' => $category->id]) }}">
+                                            <img src="{{ asset($category->image) }}"
+                                                 alt="{{ $category->name }}"
+                                                 style="width: 190px !important; height: 190px !important; object-fit: cover; border-radius: 50%;" />
                                         </a>
                                     </figure>
                                     <div class="category-content">
                                         <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Sports</a>
+                                            <a href="{{ route('category-shop', ['id' => $category->id]) }}">{{ $category->name }}</a>
                                         </h4>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-5.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #B8BDC1;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Babies</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-6.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #99C4CA;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Sneakers</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-7.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #4E5B63;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Cameras</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-8.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #D3E5EF;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Games</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-9.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #65737C;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Kitchen</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-20.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #E4E4E4;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Watches</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide category-wrap">
-                                <div class="category category-ellipse">
-                                    <figure class="category-media">
-                                        <a href="shop-banner-sidebar.html">
-                                            <img src="{{asset('/')}}website/assets/images/categories/category-21.jpg" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #D3D8DE;" />
-                                        </a>
-                                    </figure>
-                                    <div class="category-content">
-                                        <h4 class="category-name">
-                                            <a href="shop-banner-sidebar.html">Clothes</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -264,46 +83,28 @@
                                 <!-- Start of Collapsible widget -->
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title"><span>All Categories</span></h3>
-                                    <ul class="widget-body filter-items search-ul">
-                                        <li><a href="#">Accessories</a></li>
-                                        <li><a href="#">Babies</a></li>
-                                        <li><a href="#">Beauty</a></li>
-                                        <li><a href="#">Decoration</a></li>
-                                        <li><a href="#">Electronics</a></li>
-                                        <li><a href="#">Fashion</a></li>
-                                        <li><a href="#">Food</a></li>
-                                        <li><a href="#">Furniture</a></li>
-                                        <li><a href="#">Kitchen</a></li>
-                                        <li><a href="#">Medical</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Watches</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End of Collapsible Widget -->
+                                    @foreach($categories as $category)
+                                        <li>
+                                            <a href="{{ route('shop', ['id' => $category->id]) }}">
+                                                {{ $category->name }}
+                                            </a>
 
-                                <!-- Start of Collapsible Widget -->
-                                <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><span>Price</span></h3>
-                                    <div class="widget-body">
-                                        <ul class="filter-items search-ul">
-                                            <li><a href="#">$0.00 - $100.00</a></li>
-                                            <li><a href="#">$100.00 - $200.00</a></li>
-                                            <li><a href="#">$200.00 - $300.00</a></li>
-                                            <li><a href="#">$300.00 - $500.00</a></li>
-                                            <li><a href="#">$500.00+</a></li>
-                                        </ul>
-                                        <form class="price-range">
-                                            <input type="number" name="min_price" class="min_price text-center"
-                                                   placeholder="$min"><span class="delimiter">-</span><input
-                                                type="number" name="max_price" class="max_price text-center"
-                                                placeholder="$max"><a href="#"
-                                                                      class="btn btn-primary btn-rounded">Go</a>
-                                        </form>
-                                    </div>
+                                            {{-- Use isNotEmpty() to safely check for records --}}
+                                            @if($category->subCategory && $category->subCategory->isNotEmpty())
+                                                <ul class="inner-sub-category">
+                                                    @foreach($category->subCategory as $subCategory)
+                                                        <li>
+                                                            <a href="{{ route('sub-category-shop', ['id' => $subCategory->id]) }}">
+                                                                {{ $subCategory->name }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
                                 </div>
-                                <!-- End of Collapsible Widget -->
 
-                                <!-- Start of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title"><span>Size</span></h3>
                                     <ul class="widget-body filter-items item-check mt-1">

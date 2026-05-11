@@ -38,20 +38,29 @@
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">Category Name</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" value="{{$category->name}}" name="name" placeholder="Enter Category Name" type="text">
+                                            <input class="form-control @error('name') is-invalid @enderror" value="{{$category->name}}" name="name" placeholder="Enter Category Name" type="text">
+                                            @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">Category Description</label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="description">{{$category->description}}</textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror" name="description">{{$category->description}}</textarea>
+                                            @error('description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-4">
                                         <label  class="col-md-3 form-label">Category Image</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" name="image" type="file">
+                                            <input class="form-control @error('image') is-invalid @enderror" name="image" type="file">
                                             <img src="{{asset($category->image)}}" alt="" height="100">
+                                            @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <button class="btn btn-primary" type="submit">Update Category</button>
